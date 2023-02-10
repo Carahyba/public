@@ -70,7 +70,9 @@ app.layout = html.Div(children=[ html.H1('US Domestic Airline Flights Performanc
                Output(component_id='row2col1-plot', component_property='figure'),
                Output(component_id='row2col2-plot', component_property='figure')
                ],
-               Input(component_id='input_year', component_property='value'))
+               [Input(component_id='report_type', component_property='value'),
+               Input(component_id='input_year', component_property='value')
+               ])
 
 def compute_info(airline_data, entered_report, entered_year):
     # Select data
@@ -96,6 +98,7 @@ def compute_info(airline_data, entered_report, entered_year):
 def get_graph(entered_report, entered_year):
     # Compute required information for creating graph from the data
     df_subset_1, df_subset_2, df_subset_3, df_subset_4, df_subset_5 = compute_info(airline_data, entered_report, entered_year)
+    
     if entered_report == "performance":
         # Treemap
         fig1 = px.treemap(df_subset_1, path=["Month"], values="NoShow", color="Reporting_Airline",
