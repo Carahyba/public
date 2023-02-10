@@ -14,6 +14,9 @@ airline_data =  pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.
 
 airline_data.rename(columns={'OriginStateFips':'Passengers','OriginWac':'NoShow'}, inplace=True)
 
+year_list = [i for i in range(2005, 2021, 1)]
+year_dict = [{"label": str(year), "value": str(year)} for year in year_list]
+
 # Create a dash application
 app = dash.Dash(__name__)
 
@@ -39,25 +42,8 @@ app.layout = html.Div(children=[ html.H1('US Domestic Airline Flights Performanc
                                     ["Choose Year: ",
                                     dcc.Dropdown(
                                             id='input_year',
-                                            options=[
-                                            {'label': '2005', 'value': '2005'},
-                                            {'label': '2006', 'value': '2006'},
-                                            {'label': '2007', 'value': '2007'},
-                                            {'label': '2008', 'value': '2008'},
-                                            {'label': '2009', 'value': '2009'},
-                                            {'label': '2010', 'value': '2010'},
-                                            {'label': '2011', 'value': '2011'},
-                                            {'label': '2012', 'value': '2012'},
-                                            {'label': '2013', 'value': '2013'},
-                                            {'label': '2014', 'value': '2014'},
-                                            {'label': '2015', 'value': '2015'},
-                                            {'label': '2016', 'value': '2016'},
-                                            {'label': '2017', 'value': '2017'},
-                                            {'label': '2018', 'value': '2018'},
-                                            {'label': '2019', 'value': '2019'},
-                                            {'label': '2020', 'value': '2020'}                                            
-                                            ],
-                                            value='2005'
+                                            options=year_dict,
+                                            value=year_dict[0]["value"]
                                             ),],),
                                     ],),
                                 html.Br(),
@@ -66,7 +52,7 @@ app.layout = html.Div(children=[ html.H1('US Domestic Airline Flights Performanc
                                 html.Div(dcc.Graph(id='row0-plot'), style={'width':'80%'}),
                                 # Segment 2
                                 html.Div([
-                                        html.Div(dcc.Graph(id='row1col2-plot')),
+                                        html.Div(dcc.Graph(id='row1col1-plot')),
                                         html.Div(dcc.Graph(id='row1col2-plot'))
                                 ], style={'display': 'flex'}),
                                 # Segment 3
